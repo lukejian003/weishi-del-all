@@ -26,7 +26,7 @@ async function queryVideoList(personId, cookie) {
     // 处理返回的数据
     if (data && data.feedDetailList) {
       const feedDetails = data.feedDetailList;
-      console.log('视频列表查询结果:', feedDetails);
+      // console.log('视频列表查询结果:', feedDetails);
       return feedDetails;
     } else {
       console.log('视频列表为空,删除操作已完成。');
@@ -72,8 +72,9 @@ async function repeatRequests(personId, cookie, delayBetweenRequests) {
     }
 
     for (const { feedId, desc, isPrePub } of feedDetails) {
-      await delVideo(feedId, desc, isPrePub, cookie, personId, delayBetweenRequests);
-      await new Promise(resolve => setTimeout(resolve, delayBetweenRequests));
+      const time = generateRandomDelay(delayBetweenRequests)
+      await delVideo(feedId, desc, isPrePub, cookie, personId, time);
+      await new Promise(resolve => setTimeout(resolve, time));
     }
   }
 
@@ -98,6 +99,13 @@ function extractPersonIdFromCookie(cookie) {
   } else {
     return null;
   }
+}
+
+function generateRandomDelay(x) {
+  const minDelay = 1000;
+  const maxDelay = x >= 1000 ? x : 1000;
+  const randomDelay = minDelay + Math.random() * (maxDelay - minDelay);
+  return randomDelay;
 }
 
 // 从命令行输入参数

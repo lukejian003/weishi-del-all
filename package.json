@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "批量删除腾讯微视中的视频",
   "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
   "dependencies": {
-    "axios": "^0.24.0",
-    "readline": "^1.4.0"
+    "axios": "^0.24.0"
   }
 }
