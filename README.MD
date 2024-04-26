@@ -19,7 +19,6 @@
 ## 依赖项
 
 - axios
-- readline
 
 ## 配置
 
